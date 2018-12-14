@@ -46,7 +46,7 @@ def calc_rp(rpd, current_rp={}):
     return rpd
 
 
-def predict_rank(team, data, schedule, sims, n=0, current_rp={}):  # TODO optimise
+def predict_rank(team, data, schedule, sims, n=0, current_rp={}):  # TODO optimise (multiple teams at once)
     schedule = schedule[n:]
     t = team
 
@@ -62,5 +62,6 @@ def predict_rank(team, data, schedule, sims, n=0, current_rp={}):  # TODO optimi
     return sum_rank / sims
 
 
+# TODO refactor
 if __name__ == '__main__':
     print(predict_rank(5406, data, schedule, 100))

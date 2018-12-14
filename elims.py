@@ -2,8 +2,8 @@ from match import *
 from data import data, alliances, elims_order
 
 
-def index_dict_symmetry(d, a, b):
-    return d[a][b] if a < b else 1 - d[b][a]
+def index_dict_symmetry(d, i, j):
+    return d[i][j] if i < j else 1 - d[j][i]
 
 
 def elims_win(alliances, sims):
@@ -15,7 +15,9 @@ def elims_win(alliances, sims):
     for i in range(1, 9):
         for j in range(1, 9):
             if i < j:
-                elims_data[i][j] = sim_win_chance(data, alliances[i], alliances[j], sims)
+                match = Match(alliances[i], alliances[j])
+                match.win_chance(sims)
+                elims_data[i][j] = match.red_win_chance()
 
     return elims_data
 
@@ -44,9 +46,9 @@ def calc_elims(elims_data, l):
     return elims_round(elims_data, *l)
 
 
-# TODO make this use Match
+# TODO refactor
 if __name__ == "__main__":
-    elims_data = elims_win(alliances, 1000)
+    elims_data = elims_win(alliances, 100)
 
     for k in elims_data:
         print(k, elims_data[k])
