@@ -41,20 +41,21 @@ def calc_elims(elims_data, l):
     for i, e in enumerate(l):
         if type(e[0]) == dict:
             l[i] = elims_round(elims_data, *e)
-        else:
+        elif type(e[0]) == list:
             l[i] = calc_elims(elims_data, e)
+        else:
+            print("oopsie")
     return elims_round(elims_data, *l)
+
+
+def sim_elims(alliances, elims_order, sims):
+    return calc_elims(elims_win(alliances, sims), elims_order)
 
 
 # TODO refactor
 if __name__ == "__main__":
-    elims_data = elims_win(alliances, 100)
+    d = sim_elims(alliances, elims_order, 1000)
 
-    for k in elims_data:
-        print(k, elims_data[k])
-    print()
-
-    d = calc_elims(elims_data, elims_order)
     d = [(k, d[k]) for k in sorted(d, key=d.get, reverse=True)]
     for k, v in d:
         print(k, v, sep="\t")

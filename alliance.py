@@ -12,10 +12,14 @@ class Alliance:
         self.exchange = [0, 0]
         self.climbing = []
 
+        self.auto_scales=[]
+
+
         autos = []
         for team in teams:
             autos.append([team.team, team.auto_scale[0]])
         autos = sorted(autos, key=lambda item: item[1])
+
         for team in teams:
             self.auto_line.append(team.auto_line)
 

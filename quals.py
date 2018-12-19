@@ -30,20 +30,20 @@ def sim_quals(data, schedule, sims, n=0):
     return results
 
 
-def calc_rp(rpd, current_rp={}):
-    for team in rpd:
+def calc_rp(predicted_rp, current_rp={}):
+    for team in predicted_rp:
         rp = 0
         count = 0
-        for i in range(len(rpd[team]['win'])):
-            rp += 2 * rpd[team]['win'][i]
-            rp += rpd[team]['auto'][i]
-            rp += rpd[team]['climb'][i]
+        for i in range(len(predicted_rp[team]['win'])):
+            rp += 2 * predicted_rp[team]['win'][i]
+            rp += predicted_rp[team]['auto'][i]
+            rp += predicted_rp[team]['climb'][i]
             count += 1
         if team in current_rp:
-            rpd[team] = (rp + current_rp[team]['sum']) / (count + current_rp[team]['count'])
+            predicted_rp[team] = (rp + current_rp[team]['sum']) / (count + current_rp[team]['count'])
         else:
-            rpd[team] = rp / count
-    return rpd
+            predicted_rp[team] = rp / count
+    return predicted_rp
 
 
 def predict_rank(team, data, schedule, sims, n=0, current_rp={}):  # TODO optimise (multiple teams at once)
@@ -60,6 +60,9 @@ def predict_rank(team, data, schedule, sims, n=0, current_rp={}):  # TODO optimi
 
         sum_rank += rank
     return sum_rank / sims
+
+
+# def strength_of_schedule(data,teams):
 
 
 # TODO refactor
